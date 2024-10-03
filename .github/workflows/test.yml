@@ -8,20 +8,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
     # Realiza el checkout del código fuente
     - name: Checkout Code
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Set up JDK 17
-      uses: actions/setup-java@v3
+      uses: actions/setup-java@v4
       with:
           java-version: 17
           distribution: 'temurin'
 
     - name: Cache Maven packages
-      uses: actions/cache@v3
+      uses: actions/cache@v4
       with:
         path: ~/.m2
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -43,10 +42,10 @@ jobs:
     - name: run tests
       uses: reactivecircus/android-emulator-runner@v2
       with:
-        api-level: 35
+        api-level: 34
         target: google_apis
         arch: x86_64
-        #profile: Pixel8 # No he encontrado el nombre del pixel 8
+        profile: pixel_6
         script: mvn test "-Dcucumber.filter.tags=@test"
 
     # Comprime los reportes y capturas de pantalla en un archivo ZIP
@@ -56,14 +55,14 @@ jobs:
 
     # Sube el archivo ZIP como un artefacto del workflow
     - name: Upload Extent Report ZIP
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: extent-report-zip
         path: reporte-automatizacion.zip
 
     # Envia un email con el reporte adjunto
     - name: Send email with zipped report
-      uses: dawidd6/action-send-mail@v3.10.0
+      uses: dawidd6/action-send-mail@v3
       with:
         server_address: smtp.gmail.com
         server_port: 465
