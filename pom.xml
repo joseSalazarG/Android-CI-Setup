@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>TestEmulator</artifactId>
+    <artifactId>Pokedex</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <properties>
@@ -18,11 +18,12 @@
         <restassured.version>5.3.0</restassured.version>
         <commons-logging.version>1.2</commons-logging.version>
         <log4j.version>2.23.1</log4j.version>
-        <slf4j-api.version>2.0.0</slf4j-api.version>
+        <slf4j-api.version>2.0.13</slf4j-api.version>
         <lombok.version>1.18.30</lombok.version>
+        <jetbrains-annotations.version>24.0.1</jetbrains-annotations.version>
         <maven-deploy-plugin>3.1.2</maven-deploy-plugin>
         <maven-install-plugin>3.1.2</maven-install-plugin>
-        <maven-site-plugin>3.12.0</maven-site-plugin>
+        <maven-site-plugin>3.20.0</maven-site-plugin>
         <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <maven-surefire-plugin.version>3.2.5</maven-surefire-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -109,10 +110,11 @@
             <version>${log4j.version}</version>
         </dependency>
 
+        <!-- SLF4J -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.7.36</version>
+            <version>${slf4j-api.version}</version>
         </dependency>
 
         <!-- Lombok -->
@@ -121,6 +123,14 @@
             <artifactId>lombok</artifactId>
             <version>${lombok.version}</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- JetBrains Annotations -->
+        <dependency>
+            <groupId>org.jetbrains</groupId>
+            <artifactId>annotations</artifactId>
+            <version>${jetbrains-annotations.version}</version>
+            <scope>compile</scope>
         </dependency>
 
         <!-- Maven Plugins -->
@@ -141,14 +151,6 @@
             <artifactId>maven-site-plugin</artifactId>
             <version>${maven-site-plugin}</version>
             <type>maven-plugin</type>
-        </dependency>
-
-        <!-- JetBrains Annotations -->
-        <dependency>
-            <groupId>org.jetbrains</groupId>
-            <artifactId>annotations</artifactId>
-            <version>24.0.1</version>
-            <scope>compile</scope>
         </dependency>
 
     </dependencies>

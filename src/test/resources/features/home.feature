@@ -1,10 +1,11 @@
 @Drastic
-Feature: Emulador
+Feature: Test de la aplicacion
 
   Background:
     Given Abro la aplicacion
 
   @test
-  Scenario: Drastic
-    And Voy a opciones
-    Then Valido ver opciones de audio
+  Scenario: Pokedex
+    When Entro a la pokedex
+    Then Deberia ver la lista de pokemones
+

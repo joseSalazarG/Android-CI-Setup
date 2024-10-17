@@ -3,6 +3,7 @@ package steps;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pom.home.HomeLogic;
 
 public class HomeSteps {
@@ -14,13 +15,13 @@ public class HomeSteps {
         homeLogic.abrirApp();
     }
 
-    @And("Voy a opciones")
-    public void voyAOpciones() {
-        homeLogic.voyAOpciones();
+    @When("Entro a la pokedex")
+    public void entroALaPokedex() {
+        homeLogic.entrarPokedex();
     }
 
-    @Then("Valido ver opciones de audio")
-    public void validoVerOpcionesDeAudio() {
-        homeLogic.validoVerOpcionesDeAudio();
+    @Then("Deberia ver la lista de pokemones")
+    public void deberiaVerLaListaDePokemones() {
+        homeLogic.verListaPokemones();
     }
 }

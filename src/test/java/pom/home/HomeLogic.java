@@ -16,20 +16,17 @@ public class HomeLogic extends Hooks {
         String step = "Abro la aplicacion";
         log.info(step);
 
-        clickElement(homePage.getBtnNo());
     }
 
-    public void voyAOpciones() {
-        String step = "Voy a opciones";
+    public void entrarPokedex() {
+        String step = "Entro a la pokedex";
         log.info(step);
 
-        clickElement(homePage.getBtnOpciones());
     }
 
-    public void validoVerOpcionesDeAudio() {
-        String step = "Valido ver opciones de audio";
+    public void verListaPokemones() {
+        String step = "Deberia ver la lista de pokemones";
         log.info(step);
 
-        assertTrue("No se ve", elementIsDisplayed(homePage.getBtnOpcionesDeAudio()));
     }
 }
