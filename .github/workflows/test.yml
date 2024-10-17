@@ -28,7 +28,7 @@ jobs:
         with:
           repository: TEIK0/Pokedex             # nombre del dueño y nombre del repositorio
           ref: main                             # nombre de la rama que se va a clonar
-          token: ${{ secrets.SECRET_TOKEN }}    # token de autenticación (classic) para clonar el repositorio en caso de no ser publico
+          #token: ${{ secrets.SECRET_TOKEN }}    # token de autenticación (classic) para clonar el repositorio en caso de no ser publico
 
       # Realiza la build de la apk con flutter
       - name: Build APK
