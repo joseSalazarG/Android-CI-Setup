@@ -47,29 +47,30 @@ public class Hooks {
 	private static final String APPIUM_SERVER_URL = "http://127.0.0.1:4723/";
 
 	/**
-	 * Configura el entorno antes de ejecutar las pruebas.
-	 * Crea las capacidades, inicializa el driver de Appium y registra un mensaje informativo.
-	 */
-	@Before
-	public void setUp() {
-		startAppiumServer();
-		UiAutomator2Options options = createCapabilities(true);
-		initializeDriver(options);
-		log.info("Iniciando la aplicación");
-	}
-
-	/**
 	 * Inicializa el servidor de Appium.
 	 */
-	private void startAppiumServer() {
+	@BeforeAll
+	public static void startAppiumServer() {
 		try {
 			log.info("Iniciando el servidor de Appium");
 			appiumServer = AppiumDriverLocalService.buildDefaultService();
 			appiumServer.start();
 			appiumServer.clearOutPutStreams();
+			addEmergencyShutdown();
 		} catch (AppiumServerHasNotBeenStartedLocallyException e) {
 			throw new RuntimeException("Error al iniciar el servidor de Appium", e);
 		}
+	}
+
+	/**
+	 * Configura el entorno antes de ejecutar las pruebas.
+	 * Crea las capacidades, inicializa el driver de Appium y registra un mensaje informativo.
+	 */
+	@Before
+	public void setUp() {
+		UiAutomator2Options options = createCapabilities(true);
+		initializeDriver(options);
+		log.info("Iniciando la aplicación");
 	}
 
 	/**
@@ -130,6 +131,26 @@ public class Hooks {
 	}
 
 	/**
+	 * Detiene el servidor de Appium al finalizar las pruebas.
+	 */
+	@AfterAll
+	public static void stopAppiumServer() {
+		appiumServer.stop();
+	}
+
+	/**
+	 * Agrega un cierre de emergencia para detener el servidor de Appium al finalizar las pruebas.
+	 */
+	private static void addEmergencyShutdown() {
+		Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+			if (appiumServer != null && appiumServer.isRunning()) {
+				log.info("Deteniendo de emergencia el servidor de Appium");
+				appiumServer.stop();
+			}
+		}));
+	}
+
+	/**
 	 * Captura de pantalla en caso de fallo y adjunta al informe.
 	 * @param scenario El escenario de prueba.
 	 */
@@ -152,8 +173,6 @@ public class Hooks {
 				driver = null;
 			} catch (WebDriverException e) {
 				throw new RuntimeException("Error al cerrar la aplicación: " + e.getMessage(), e);
-			} finally {
-				appiumServer.stop();
 			}
 		}
 	}
@@ -700,26 +719,7 @@ public class Hooks {
 			System.out.println("Error al hacer clic y mantener presionado el elemento: " + e.getMessage());
 		}
 	}
-	/**
-	 * Genera un String Random
-	 */
-	public static String generateRandomString(int lenght) {
-		String characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-		Random random = new Random();
-		StringBuilder stringBuilder = new StringBuilder(lenght);
 
-		for (int i = 0; i < lenght; i++) {
-			int index = random.nextInt(characters.length());
-			stringBuilder.append(characters.charAt(index));
-		}
-
-		return stringBuilder.toString();
-	}
-	public static String generateRandomNumber(int n) {
-		Random random = new Random();
-		int numeroAleatorio = random.nextInt(n);
-		return String.format("%06d", numeroAleatorio);
-	}
 	/**
 	 * Espera hasta que un elemento, identificado por un localizador XPath, esté visible en la página.
 	 *
