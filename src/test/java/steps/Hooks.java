@@ -20,7 +20,6 @@ import java.net.URL;
 import java.nio.file.Paths;
 import java.time.Duration;
 import java.util.*;
-import io.cucumber.java.Scenario;
 import static java.time.Duration.ofMillis;
 import static org.openqa.selenium.interactions.PointerInput.Kind.TOUCH;
 import static org.openqa.selenium.interactions.PointerInput.MouseButton.LEFT;
