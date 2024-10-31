@@ -311,7 +311,7 @@ public class Hooks {
 			File localFile = new File(localFileName);
 			driver.pushFile(remotePath, localFile);
 		} catch (IOException e) {
-			log.error("Error al cargar el archivo: " + e.getMessage());
+            log.error("Error al cargar el archivo: {}", e.getMessage());
 			throw new RuntimeException(e);
 		}
 	}
@@ -828,26 +828,14 @@ public class Hooks {
 			int y = 0;
 
 			//Eje Horizontal
-			if(horizontal.equals("RIGHT")){ //derecha
-				x = (location.getX() + width) + marginx;
-			}
-			if(horizontal.equals("LEFT")){ //izquierda
-				x = (location.getX()) + marginx;
-			}
-			if(horizontal.equals("CENTER")){ //centro x
-				x = (location.getX() + width / 2) + marginx;
-			}
+			if(horizontal.equals("RIGHT")){ x = (location.getX() + width) + marginx;}
+			if(horizontal.equals("LEFT")){ x = (location.getX()) + marginx;}
+			if(horizontal.equals("CENTER")){ x = (location.getX() + width / 2) + marginx;}
 
 			//Eje Vertical
-			if(vertical.equals("TOP")){ //arriba
-				y = (location.getY()) + marginy;
-			}
-			if(vertical.equals("BOTTOM")){ //abajo
-				y = (location.getY() + height) + marginy;
-			}
-			if(vertical.equals("CENTER")){//centro
-				y = (location.getY() + height / 2) + marginy;
-			}
+			if(vertical.equals("TOP")){ y = (location.getY()) + marginy; }
+			if(vertical.equals("BOTTOM")){ y = (location.getY() + height) + marginy; }
+			if(vertical.equals("CENTER")){ y = (location.getY() + height / 2) + marginy; }
 
 			PointerInput finger = new PointerInput(PointerInput.Kind.TOUCH, "FINGER");
 			Sequence tap = new Sequence(finger, 1);
